@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf'],
+      allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'docx'],
       withData: true,
     );
     if (result == null || result.files.isEmpty) return;
@@ -47,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (ext?.toLowerCase()) {
       case 'pdf': return 'application/pdf';
       case 'png': return 'image/png';
+      case 'docx': return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       default:    return 'image/jpeg';
     }
   }
@@ -161,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'JPG · PNG · PDF (max 20MB)',
+                        'JPG · PNG · PDF · DOCX (max 20MB)',
                         style: TextStyle(color: Colors.white.withOpacity(0.3), fontSize: 12),
                       ),
                     ],

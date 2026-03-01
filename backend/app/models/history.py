@@ -20,6 +20,8 @@ class History(Base):
     entities = Column(Text, nullable=True)         # JSON list
     keywords = Column(Text, nullable=True)           # JSON string
     category = Column(String(100), nullable=True)
+    word_count = Column(Integer, default=0)
+    sentence_count = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
     user = relationship("User", backref="history")

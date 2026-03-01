@@ -75,6 +75,20 @@ def ocr_pdf(pdf_path: str) -> str:
         return f"PDF o'qish xatosi: {str(e)}"
 
 
+def read_docx(docx_path: str) -> str:
+    """DOCX fayldan matn olish (python-docx)."""
+    try:
+        from docx import Document
+        doc = Document(docx_path)
+        full_text = []
+        for para in doc.paragraphs:
+            if para.text.strip():
+                full_text.append(para.text.strip())
+        return "\n".join(full_text)
+    except Exception as e:
+        return f"DOCX o'qish xatosi: {str(e)}"
+
+
 def extract_text(file_path: str, file_type: str, enhance: bool = False) -> str:
     """Universal matn ajratish funksiyasi."""
     if not os.path.exists(file_path):
@@ -82,6 +96,8 @@ def extract_text(file_path: str, file_type: str, enhance: bool = False) -> str:
 
     if file_type == "pdf":
         return ocr_pdf(file_path)
+    elif file_type == "docx":
+        return read_docx(file_path)
     elif file_type in ("image", "jpg", "jpeg", "png"):
         if enhance:
             enhanced = enhance_image(file_path)

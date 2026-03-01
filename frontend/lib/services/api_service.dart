@@ -1,11 +1,10 @@
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/history_model.dart';
 
 class ApiService {
-  static const String _baseUrl = 'http://localhost:8000';
-  static final _storage = const FlutterSecureStorage();
+  static const String _baseUrl = 'http://127.0.0.1:8000';
   late final Dio _dio;
 
   ApiService() {
@@ -17,15 +16,17 @@ class ApiService {
     ));
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await _storage.read(key: 'access_token');
+        final prefs = await SharedPreferences.getInstance();
+        final token = prefs.getString('access_token');
         if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
         }
         return handler.next(options);
       },
-      onError: (e, handler) {
+      onError: (e, handler) async {
         if (e.response?.statusCode == 401) {
-          _storage.delete(key: 'access_token');
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.remove('access_token');
         }
         return handler.next(e);
       },
@@ -140,15 +141,18 @@ class ApiService {
 
   // --- Token management ---
   static Future<void> saveToken(String token) async {
-    await _storage.write(key: 'access_token', value: token);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('access_token', token);
   }
 
   static Future<void> clearToken() async {
-    await _storage.delete(key: 'access_token');
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('access_token');
   }
 
   static Future<bool> hasToken() async {
-    final token = await _storage.read(key: 'access_token');
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('access_token');
     return token != null && token.isNotEmpty;
   }
 }

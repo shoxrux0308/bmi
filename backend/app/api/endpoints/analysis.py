@@ -14,7 +14,7 @@ from app.models.history import History
 from app.services.ocr_service import extract_text
 from app.services.language_detector import get_detector
 from app.services.nlp_service import analyze_text
-from app.schemas.schemas import HistoryOut
+from app.schemas.schemas import HistoryOut, AnalyzeResponse
 
 router = APIRouter(prefix="/api", tags=["Analysis"])
 settings = get_settings()
@@ -23,6 +23,7 @@ ALLOWED_TYPES = {
     "image/jpeg": ("image", "jpg"),
     "image/png": ("image", "png"),
     "application/pdf": ("pdf", "pdf"),
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": ("docx", "docx"),
 }
 
 
@@ -83,6 +84,8 @@ async def upload_and_analyze(
         entities=json.dumps(nlp_result["entities"], ensure_ascii=False),
         keywords=json.dumps(nlp_result["keywords"], ensure_ascii=False),
         category=nlp_result["category"],
+        word_count=nlp_result["word_count"],
+        sentence_count=nlp_result["sentence_count"],
     )
     db.add(history)
     await db.commit()

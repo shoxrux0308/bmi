@@ -1,0 +1,23 @@
+INFO:     Started server process [47412]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:51160 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51282 - "GET /api/auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "POST /api/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51296 - "GET /api/admin/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51298 - "GET /api/admin/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51300 - "GET /api/admin/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51303 - "GET /api/history/?skip=0&limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54834 - "GET /api/protocols/doctor HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54836 - "GET /api/protocol-forms/client/1?page=1&page_size=100 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54843 - "GET /api/protocols/doctor HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54844 - "GET /api/protocol-forms/client/2?page=1&page_size=100 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54850 - "GET /api/protocols/doctor HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54852 - "GET /api/protocol-forms/client/1?page=1&page_size=100 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54872 - "GET /api/protocols/doctor HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54874 - "GET /api/protocol-forms/client/2?page=1&page_size=100 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56126 - "GET /api/protocols/doctor HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56128 - "GET /api/protocol-forms/client/1?page=1&page_size=100 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:57129 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58760 - "GET /health HTTP/1.1" 200 OK

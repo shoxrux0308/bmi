@@ -10,6 +10,8 @@ class HistoryModel {
   final String? summary;
   final String? keywords;
   final String? category;
+  final int? wordCount;
+  final int? sentenceCount;
   final DateTime createdAt;
 
   HistoryModel({
@@ -22,6 +24,8 @@ class HistoryModel {
     this.summary,
     this.keywords,
     this.category,
+    this.wordCount,
+    this.sentenceCount,
     required this.createdAt,
   });
 
@@ -36,6 +40,8 @@ class HistoryModel {
       summary: json['summary'],
       keywords: json['keywords'],
       category: json['category'],
+      wordCount: json['word_count'],
+      sentenceCount: json['sentence_count'],
       createdAt: DateTime.parse(json['created_at']),
     );
   }
@@ -74,8 +80,17 @@ class UserModel {
       fullName: json['full_name'] ?? '',
       email: json['email'] ?? '',
       role: json['role'] ?? 'user',
-      createdAt: DateTime.parse(json['created_at']),
+      createdAt: _parseDate(json['created_at']),
     );
+  }
+
+  static DateTime _parseDate(dynamic date) {
+    if (date == null) return DateTime.now();
+    try {
+      return DateTime.parse(date.toString());
+    } catch (_) {
+      return DateTime.now();
+    }
   }
 
   bool get isAdmin => role == 'admin';

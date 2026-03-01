@@ -44,6 +44,8 @@ class HistoryOut(BaseModel):
     entities: Optional[str] = None
     keywords: Optional[str]
     category: Optional[str]
+    word_count: int = 0
+    sentence_count: int = 0
     created_at: datetime
 
     class Config:
@@ -64,6 +66,8 @@ class AnalyzeResponse(BaseModel):
     entities: Optional[list[str]] = None
     keywords: list[str]
     category: str
+    word_count: int
+    sentence_count: int
 
 
 class FeedbackCreate(BaseModel):
